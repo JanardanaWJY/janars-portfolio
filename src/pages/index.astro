@@ -1,0 +1,423 @@
+---
+import AssetSlot from "../components/AssetSlot.astro";
+import Icon from "../components/Icon.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import {
+  education,
+  featuredProjects,
+  quickStats,
+  serviceCards,
+  siteMeta,
+  skillGroups,
+  socialLinks,
+  strengths,
+  supportingProjects,
+  timeline,
+} from "../data/portfolio";
+
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Journey", href: "#timeline" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<MainLayout
+  title={`${siteMeta.name} | Portfolio`}
+  description="A visual portfolio for Janars featuring work timeline, project highlights, and asset-ready showcase sections."
+>
+  <div class="page-shell portfolio-page">
+    <div class="decor-orb decor-orb-left" aria-hidden="true"></div>
+    <div class="decor-orb decor-orb-right" aria-hidden="true"></div>
+    <div class="decor-cross decor-cross-top" aria-hidden="true"></div>
+    <div class="decor-cross decor-cross-bottom" aria-hidden="true"></div>
+    <div class="decor-wave decor-wave-top" aria-hidden="true"></div>
+    <div class="decor-wave decor-wave-bottom" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand-lockup" href="#top">
+        <span class="brand-dot"></span>
+        <span>{siteMeta.shortName}</span>
+      </a>
+      <nav class="site-nav">
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+      <a class="button-secondary header-cta" href="#contact">Say hello</a>
+    </header>
+
+    <main id="top" class="site-main">
+      <section class="hero-section">
+        <div class="hero-copy">
+          <span class="eyebrow reveal-item">Portfolio of {siteMeta.name}</span>
+          <h1 class="hero-title reveal-item">
+            Making complex systems feel clearer, more structured, and easier to act on.
+          </h1>
+          <p class="lead-copy reveal-item">
+            I work across business requirements, workflow mapping, and data analysis. My goal is to
+            help teams move from scattered information into something more organized, practical, and
+            decision-ready.
+          </p>
+          <div class="hero-actions reveal-item">
+            <a class="button-primary" href="#projects">See project highlights</a>
+            <a class="button-secondary" href="#timeline">Explore my journey</a>
+          </div>
+          <div class="hero-microfacts reveal-item">
+            <div class="microfact">
+              <Icon name="location" className="microfact-icon" />
+              <span>{siteMeta.location}</span>
+            </div>
+            <div class="microfact">
+              <Icon name="mail" className="microfact-icon" />
+              <span>{siteMeta.email}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal-item">
+          <div class="portrait-stage">
+            <div class="portrait-outline float-card"></div>
+            <div class="portrait-accent float-card"></div>
+            <AssetSlot
+              className="portrait-slot"
+              src="/assets/profile/janardana-portrait.png"
+              alt="Portrait of I Putu Janardana Wijaya"
+              label="Profile portrait"
+              hint="Upload public/assets/profile/janardana-portrait.png"
+            />
+            <div class="floating-panel floating-panel-top float-card">
+              <span class="floating-kicker">Current focus</span>
+              <strong>{siteMeta.role}</strong>
+            </div>
+            <div class="floating-panel floating-panel-bottom float-card">
+              <span class="floating-kicker">Working style</span>
+              <strong>Requirements to reporting clarity</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stat-strip reveal-on-scroll">
+        {
+          quickStats.map((item) => (
+            <article class="stat-pill">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </article>
+          ))
+        }
+      </section>
+
+      <section id="about" class="section-block">
+        <div class="section-heading reveal-on-scroll">
+          <span class="eyebrow">What I do</span>
+          <h2 class="section-title">A more visual view of how I contribute.</h2>
+          <p class="section-copy">
+            Instead of just listing skills, here is the shape of the work I usually do and the tools
+            I tend to use when helping teams understand systems, workflows, and data.
+          </p>
+        </div>
+
+        <div class="service-grid">
+          {
+            serviceCards.map((item) => (
+              <article class="service-card reveal-on-scroll">
+                <div class="service-icon-wrap">
+                  <Icon name={item.icon} className="service-icon" />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <div class="tool-row">
+                  {item.tools.map((tool) => <span class="tool-pill">{tool}</span>)}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="strengths" class="strength-section">
+        <div class="section-heading reveal-on-scroll">
+          <span class="eyebrow">How I work</span>
+          <h2 class="section-title">The strengths behind the process.</h2>
+        </div>
+        <div class="strength-grid">
+          {
+            strengths.map((item, index) => (
+              <article class="strength-card reveal-on-scroll">
+                <span class="strength-number">0{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="timeline" class="section-block timeline-section">
+        <div class="section-heading reveal-on-scroll">
+          <span class="eyebrow">Journey</span>
+          <h2 class="section-title">A timeline with the actual milestones.</h2>
+          <p class="section-copy">
+            Each role below includes the tools, focus areas, and type of output I worked on, so it
+            reads more like real experience and less like a compact text list.
+          </p>
+        </div>
+
+        <div class="timeline-list">
+          {
+            timeline.map((item) => (
+              <article class="timeline-item reveal-on-scroll">
+                <div class="timeline-node">
+                  <Icon name={item.icon} className="timeline-node-icon" />
+                </div>
+                <div class="timeline-card">
+                  <div class="timeline-copy">
+                    <span class="timeline-period">{item.period}</span>
+                    <h3>{item.role}</h3>
+                    <p class="timeline-company">{item.company}</p>
+                    <p class="timeline-highlight">{item.highlight}</p>
+                    <p class="body-copy">{item.summary}</p>
+                    <div class="tool-row">
+                      {item.tools.map((tool) => <span class="tool-pill">{tool}</span>)}
+                    </div>
+                    <ul class="detail-list">
+                      {item.bullets.map((point) => <li>{point}</li>)}
+                    </ul>
+                  </div>
+                  <AssetSlot
+                    className="timeline-asset"
+                    src={item.assetSrc}
+                    alt={`${item.company} visual`}
+                    label={`${item.company} visual slot`}
+                    hint={item.assetHint}
+                  />
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="projects" class="section-block project-section">
+        <div class="section-heading reveal-on-scroll">
+          <span class="eyebrow">Projects</span>
+          <h2 class="section-title">Selected projects that support my System and Data Analyst direction.</h2>
+          <p class="section-copy">
+            I use this section to highlight research, analytics, and selected personal builds that
+            best represent how I work with data, experimentation, and problem-solving. Work
+            experience cases stay in the journey section so the portfolio feels more focused.
+          </p>
+        </div>
+
+        <div class="project-stack">
+          {
+            featuredProjects.map((project, index) => (
+              <article class:list={["project-showcase", index % 2 === 1 && "project-showcase-reverse", "reveal-on-scroll"]}>
+                <AssetSlot
+                  className="project-asset"
+                  src={project.assetSrc}
+                  alt={`${project.title} visual`}
+                  label={`${project.title} image slot`}
+                  hint={project.assetHint}
+                />
+                <div class="project-copy">
+                  <div class="project-label">
+                    <Icon name={project.icon} className="project-label-icon" />
+                    <span>{project.subtitle}</span>
+                  </div>
+                  <div class="project-meta">
+                    <span>{project.period}</span>
+                    <span>{project.associatedWith}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p class="body-copy">{project.summary}</p>
+                  <p class="project-role"><strong>My role:</strong> {project.role}</p>
+                  <div class="tool-row">
+                    {project.tools.map((tool) => <span class="tool-pill">{tool}</span>)}
+                  </div>
+                  <ul class="detail-list">
+                    {project.details.map((detail) => <li>{detail}</li>)}
+                  </ul>
+                  <p class="project-result"><strong>Result:</strong> {project.result}</p>
+                  <div class="project-link-row">
+                    {
+                      project.links.map((link) => (
+                        <a class="project-link" href={link.href} target="_blank" rel="noreferrer">
+                          {link.label}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <div class="section-heading section-heading-compact reveal-on-scroll">
+          <span class="eyebrow">Supporting project</span>
+          <h3 class="subsection-title">Additional technical build outside the main featured set.</h3>
+        </div>
+
+        <div class="supporting-project-grid">
+          {
+            supportingProjects.map((project) => (
+              <article class="supporting-project-card reveal-on-scroll">
+                <AssetSlot
+                  className="supporting-project-asset"
+                  src={project.assetSrc}
+                  alt={`${project.title} visual`}
+                  label={`${project.title} image slot`}
+                  hint={project.assetHint}
+                />
+                <div class="project-label">
+                  <Icon name={project.icon} className="project-label-icon" />
+                  <span>{project.subtitle}</span>
+                </div>
+                <div class="project-meta">
+                  <span>{project.period}</span>
+                  <span>{project.associatedWith}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p class="body-copy">{project.summary}</p>
+                <p class="project-role"><strong>My role:</strong> {project.role}</p>
+                <div class="tool-row">
+                  {project.tools.map((tool) => <span class="tool-pill">{tool}</span>)}
+                </div>
+                <p class="project-result"><strong>Result:</strong> {project.result}</p>
+                <div class="project-link-row">
+                  {
+                    project.links.map((link) => (
+                      <a class="project-link" href={link.href} target="_blank" rel="noreferrer">
+                        {link.label}
+                      </a>
+                    ))
+                  }
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-block knowledge-section">
+        <div class="knowledge-grid">
+          <article class="knowledge-panel reveal-on-scroll">
+            <span class="eyebrow">Education</span>
+            <h2 class="section-title">Where I learned the foundation.</h2>
+            <div class="education-list">
+              {
+                education.map((item) => (
+                  <div class="education-item">
+                    <h3>{item.school}</h3>
+                    <p>{item.detail}</p>
+                    <span>{item.meta}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </article>
+
+          <article class="knowledge-panel reveal-on-scroll">
+            <span class="eyebrow">Toolbox</span>
+            <h2 class="section-title">Tools and methods I use often.</h2>
+            <div class="skill-group-list">
+              {
+                skillGroups.map((group) => (
+                  <div class="skill-group">
+                    <div class="skill-group-head">
+                      <Icon name={group.icon} className="skill-group-icon" />
+                      <h3>{group.title}</h3>
+                    </div>
+                    <p>{group.items.join(" | ")}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-banner reveal-on-scroll">
+        <div class="contact-copy">
+          <span class="eyebrow">Contact</span>
+          <h2 class="section-title">If this direction feels right, we can keep polishing it.</h2>
+          <p class="section-copy">
+            You can upload your visuals gradually and this layout will pick them up. For now, the
+            structure is ready for profile imagery, project screenshots, dashboard previews, and
+            system diagrams.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="button-primary" href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a>
+          <div class="social-row">
+            {
+              socialLinks.map((item) => (
+                <a class="social-link" href={item.href} target="_blank" rel="noreferrer">
+                  <Icon name={item.icon} className="social-link-icon" />
+                  <span>{item.label}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const heroItems = gsap.utils.toArray(".reveal-item");
+    const scrollItems = gsap.utils.toArray(".reveal-on-scroll");
+    const floatingItems = gsap.utils.toArray(".float-card");
+    const decorItems = gsap.utils.toArray(".decor-orb, .decor-wave, .decor-cross");
+
+    gsap.from(heroItems, {
+      y: 36,
+      autoAlpha: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.12,
+    });
+
+    scrollItems.forEach((item) => {
+      gsap.from(item, {
+        y: 42,
+        autoAlpha: 0,
+        duration: 0.95,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    });
+
+    floatingItems.forEach((item, index) => {
+      gsap.to(item, {
+        yPercent: index % 2 === 0 ? -8 : 8,
+        xPercent: index % 2 === 0 ? 4 : -4,
+        duration: 5 + index,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    });
+
+    decorItems.forEach((item, index) => {
+      gsap.to(item, {
+        yPercent: index % 2 === 0 ? -10 : 10,
+        duration: 13 + index * 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    });
+  </script>
+</MainLayout>

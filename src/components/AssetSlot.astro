@@ -1,0 +1,38 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+interface Props {
+  src: string;
+  alt: string;
+  label: string;
+  hint: string;
+  className?: string;
+}
+
+const {
+  src,
+  alt,
+  label,
+  hint,
+  className = "",
+} = Astro.props;
+
+const relativePath = src.replace(/^\/+/, "");
+const absolutePath = join(process.cwd(), "public", relativePath);
+const hasAsset = existsSync(absolutePath);
+---
+
+<div class:list={["asset-slot", className]}>
+  {
+    hasAsset ? (
+      <img class="asset-image" src={src} alt={alt} loading="lazy" />
+    ) : (
+      <div class="asset-placeholder">
+        <span class="asset-kicker">Asset slot</span>
+        <strong>{label}</strong>
+        <p>{hint}</p>
+      </div>
+    )
+  }
+</div>
