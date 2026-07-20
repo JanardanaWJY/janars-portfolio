@@ -364,6 +364,16 @@ const navItems = [
         </div>
       </section>
     </main>
+
+    <button
+      class="scroll-top-button"
+      type="button"
+      aria-label="Scroll back to top"
+      data-scroll-top-button
+    >
+      <span class="scroll-top-button__ring" aria-hidden="true"></span>
+      <span class="scroll-top-button__icon" aria-hidden="true">↑</span>
+    </button>
   </div>
 
   <script>
@@ -376,6 +386,7 @@ const navItems = [
     const scrollItems = gsap.utils.toArray(".reveal-on-scroll");
     const floatingItems = gsap.utils.toArray(".float-card");
     const decorItems = gsap.utils.toArray(".decor-orb, .decor-wave, .decor-cross");
+    const scrollTopButton = document.querySelector("[data-scroll-top-button]");
 
     gsap.from(heroItems, {
       y: 36,
@@ -418,6 +429,24 @@ const navItems = [
         yoyo: true,
         ease: "sine.inOut",
       });
+    });
+
+    const updateScrollTopButton = () => {
+      if (!scrollTopButton) return;
+
+      const scrollTop = window.scrollY;
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0 ? Math.min(scrollTop / scrollableHeight, 1) : 0;
+
+      scrollTopButton.style.setProperty("--scroll-progress", `${progress * 100}%`);
+      scrollTopButton.classList.toggle("is-visible", scrollTop > 360);
+    };
+
+    updateScrollTopButton();
+    window.addEventListener("scroll", updateScrollTopButton, { passive: true });
+
+    scrollTopButton?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </MainLayout>
