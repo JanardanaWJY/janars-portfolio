@@ -21,6 +21,12 @@ const navItems = [
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
+
+const greetingLines = [
+  "Hello there, this is Janar.",
+  "I like making systems easier to understand.",
+  "I turn structure, flows, and data into clarity.",
+];
 ---
 
 <MainLayout
@@ -37,8 +43,7 @@ const navItems = [
 
     <header class="site-header">
       <a class="brand-lockup" href="#top">
-        <span class="brand-dot"></span>
-        <span>{siteMeta.shortName}</span>
+        <span class="brand-monogram">JW.</span>
       </a>
       <nav class="site-nav">
         {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -60,7 +65,12 @@ const navItems = [
     <main id="top" class="site-main">
       <section class="hero-section">
         <div class="hero-copy">
-          <span class="eyebrow reveal-item">Portfolio of {siteMeta.name}</span>
+          <span class="eyebrow eyebrow-dynamic reveal-item">
+            <span data-typing-greeting data-greetings={JSON.stringify(greetingLines)}>
+              {greetingLines[0]}
+            </span>
+            <span class="typing-caret" aria-hidden="true"></span>
+          </span>
           <h1 class="hero-title reveal-item">
             Making complex systems feel clearer, more structured, and easier to act on.
           </h1>
@@ -401,6 +411,7 @@ const navItems = [
     const decorItems = gsap.utils.toArray(".decor-orb, .decor-wave, .decor-cross");
     const scrollTopButton = document.querySelector("[data-scroll-top-button]");
     const themeToggle = document.querySelector("[data-theme-toggle]");
+    const greetingElement = document.querySelector("[data-typing-greeting]");
     const themeStorageKey = "janars-theme";
 
     const updateThemeToggleLabel = () => {
@@ -410,6 +421,65 @@ const navItems = [
       const nextTheme = currentTheme === "light" ? "dark" : "light";
 
       themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+    };
+
+    const initializeTypingGreeting = () => {
+      if (!(greetingElement instanceof HTMLElement)) return;
+
+      const rawGreetings = greetingElement.dataset.greetings;
+
+      if (!rawGreetings) return;
+
+      let greetings;
+
+      try {
+        greetings = JSON.parse(rawGreetings);
+      } catch {
+        return;
+      }
+
+      if (!Array.isArray(greetings) || greetings.length === 0) return;
+
+      const typingSpeed = 64;
+      const deletingSpeed = 34;
+      const pauseAfterTyping = 1600;
+      const pauseAfterDeleting = 340;
+
+      let lineIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      const tick = () => {
+        const currentLine = greetings[lineIndex];
+
+        if (typeof currentLine !== "string") return;
+
+        if (isDeleting) {
+          charIndex = Math.max(charIndex - 1, 0);
+        } else {
+          charIndex = Math.min(charIndex + 1, currentLine.length);
+        }
+
+        greetingElement.textContent = currentLine.slice(0, charIndex);
+
+        if (!isDeleting && charIndex === currentLine.length) {
+          isDeleting = true;
+          window.setTimeout(tick, pauseAfterTyping);
+          return;
+        }
+
+        if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          lineIndex = (lineIndex + 1) % greetings.length;
+          window.setTimeout(tick, pauseAfterDeleting);
+          return;
+        }
+
+        window.setTimeout(tick, isDeleting ? deletingSpeed : typingSpeed);
+      };
+
+      greetingElement.textContent = "";
+      window.setTimeout(tick, 380);
     };
 
     gsap.from(heroItems, {
@@ -454,6 +524,8 @@ const navItems = [
         ease: "sine.inOut",
       });
     });
+
+    initializeTypingGreeting();
 
     const updateScrollTopButton = () => {
       if (!scrollTopButton) return;
