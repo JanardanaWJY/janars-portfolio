@@ -106,3 +106,56 @@ const { name, className = "" } = Astro.props;
     </svg>
   )
 }
+{
+  name === "instagram" && (
+    <svg class={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.6" />
+      <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.6" />
+      <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" />
+    </svg>
+  )
+}
+{
+  name === "download" && (
+    <svg class={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 4V14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M8.5 10.5L12 14L15.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M5 18.5H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === "sun" && (
+    <svg class={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6" />
+      <path d="M12 2.75V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M12 19V21.25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M21.25 12H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M5 12H2.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M18.54 5.46L16.95 7.05" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M7.05 16.95L5.46 18.54" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M18.54 18.54L16.95 16.95" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <path d="M7.05 7.05L5.46 5.46" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === "moon" && (
+    <svg class={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M19 14.5C18 17.7 14.8 20 11.2 20C6.8 20 3.2 16.4 3.2 12C3.2 8.4 5.5 5.2 8.7 4.2C7.9 5.3 7.45 6.65 7.45 8.1C7.45 11.9 10.55 15 14.35 15C15.85 15 17.25 14.55 18.4 13.72C18.61 13.57 18.87 13.5 19 14.5Z"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linejoin="round"
+      />
+    </svg>
+  )
+}
+{
+  name === "arrow-up" && (
+    <svg class={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 18V6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      <path d="M7 11L12 6L17 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  )
+}

@@ -43,7 +43,18 @@ const navItems = [
       <nav class="site-nav">
         {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
-      <a class="button-secondary header-cta" href="#contact">Say hello</a>
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch to light mode"
+          data-theme-toggle
+        >
+          <Icon name="sun" className="theme-toggle-icon theme-toggle-icon-sun" />
+          <Icon name="moon" className="theme-toggle-icon theme-toggle-icon-moon" />
+        </button>
+        <a class="button-secondary header-cta" href="#contact">Say hello</a>
+      </div>
     </header>
 
     <main id="top" class="site-main">
@@ -372,7 +383,9 @@ const navItems = [
       data-scroll-top-button
     >
       <span class="scroll-top-button__ring" aria-hidden="true"></span>
-      <span class="scroll-top-button__icon" aria-hidden="true">↑</span>
+      <span class="scroll-top-button__icon" aria-hidden="true">
+        <Icon name="arrow-up" className="scroll-top-button__icon-svg" />
+      </span>
     </button>
   </div>
 
@@ -387,6 +400,17 @@ const navItems = [
     const floatingItems = gsap.utils.toArray(".float-card");
     const decorItems = gsap.utils.toArray(".decor-orb, .decor-wave, .decor-cross");
     const scrollTopButton = document.querySelector("[data-scroll-top-button]");
+    const themeToggle = document.querySelector("[data-theme-toggle]");
+    const themeStorageKey = "janars-theme";
+
+    const updateThemeToggleLabel = () => {
+      if (!themeToggle) return;
+
+      const currentTheme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+      themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+    };
 
     gsap.from(heroItems, {
       y: 36,
@@ -447,6 +471,17 @@ const navItems = [
 
     scrollTopButton?.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    updateThemeToggleLabel();
+
+    themeToggle?.addEventListener("click", () => {
+      const currentTheme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem(themeStorageKey, nextTheme);
+      updateThemeToggleLabel();
     });
   </script>
 </MainLayout>

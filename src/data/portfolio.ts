@@ -328,8 +328,13 @@ export const socialLinks = [
     icon: "linkedin",
   },
   {
-    label: "Linktree",
-    href: "https://linktr.ee/janardnwjy",
-    icon: "link",
+    label: "Download CV",
+    href: "https://drive.google.com/uc?export=download&id=1jSzRdR7PS2UnMcRfER5IXYtYBQ86FuHS",
+    icon: "download",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/janardnwjy",
+    icon: "instagram",
   },
 ];

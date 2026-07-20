@@ -20,6 +20,18 @@ const {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const storageKey = "janars-theme";
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem(storageKey);
+        const preferredTheme =
+          window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        const theme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : preferredTheme;
+
+        root.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <slot />
